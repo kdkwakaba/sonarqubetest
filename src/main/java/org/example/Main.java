@@ -1,16 +1,20 @@
 package org.example;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class Main {
     public static void main(String[] args) {
-        Logger logger = Logger.getLogger(Main.class.getName());
-        logger.setLevel(Level.INFO);
-        logger.log(Level.INFO, "This is the test log.");
-
-        for (int i = 0; i < 100; i++) {
-            logger.log(Level.INFO, "Loop Log");
+        String dir = "user_input"; // ユーザー入力の例
+        try {
+            Process process = Runtime.getRuntime().exec("ls " + dir);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
